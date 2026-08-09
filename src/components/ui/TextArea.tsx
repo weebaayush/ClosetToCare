@@ -1,59 +1,51 @@
-import { useId } from 'react'
 import type { TextareaHTMLAttributes } from 'react'
+import { forwardRef, useId } from 'react'
 
 export interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string
+  hint?: string
   error?: string
-  helperText?: string
-  fullWidth?: boolean
 }
 
-export function TextArea({
-  label,
-  error,
-  helperText,
-  id,
-  className = '',
-  fullWidth = true,
-  ...props
-}: TextAreaProps) {
+function joinClasses(...classes: Array<string | false | null | undefined>) {
+  return classes.filter(Boolean).join(' ')
+}
+
+export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
+  { label, hint, error, className, id, rows = 4, ...props },
+  ref,
+) {
   const generatedId = useId()
-  const textAreaId = id ?? generatedId
-  const messageId = `${textAreaId}-message`
-  const classes = [
-    'min-h-28 resize-y rounded-lg border bg-white px-3 py-2.5 text-sm text-gray-900 shadow-sm outline-none transition-colors',
-    'placeholder:text-gray-400 focus:ring-2 focus:ring-offset-0',
-    error
-      ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
-      : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500/20',
-    fullWidth ? 'w-full' : '',
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ')
+  const textareaId = id ?? generatedId
+  const hintId = hint ? `${textareaId}-hint` : undefined
+  const errorId = error ? `${textareaId}-error` : undefined
 
   return (
-    <div className={fullWidth ? 'w-full' : ''}>
-      {label ? (
-        <label htmlFor={textAreaId} className="mb-1.5 block text-sm font-medium text-gray-700">
-          {label}
-        </label>
-      ) : null}
+    <label className="flex w-full flex-col gap-1.5 text-sm font-medium text-slate-700" htmlFor={textareaId}>
+      {label && <span>{label}</span>}
       <textarea
-        id={textAreaId}
-        className={classes}
+        id={textareaId}
+        ref={ref}
+        rows={rows}
         aria-invalid={error ? true : undefined}
-        aria-describedby={error || helperText ? messageId : undefined}
+        aria-describedby={[hintId, errorId].filter(Boolean).join(' ') || undefined}
+        className={joinClasses(
+          'min-h-28 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 disabled:cursor-not-allowed disabled:bg-slate-100',
+          error && 'border-rose-500 focus:border-rose-500 focus:ring-rose-500/20',
+          className,
+        )}
         {...props}
       />
-      {error || helperText ? (
-        <p
-          id={messageId}
-          className={`mt-1.5 text-xs ${error ? 'text-red-600' : 'text-gray-500'}`}
-        >
-          {error ?? helperText}
-        </p>
-      ) : null}
-    </div>
+      {hint && !error && (
+        <span id={hintId} className="text-xs font-normal text-slate-500">
+          {hint}
+        </span>
+      )}
+      {error && (
+        <span id={errorId} className="text-xs font-medium text-rose-600">
+          {error}
+        </span>
+      )}
+    </label>
   )
-}
+})

@@ -1,34 +1,41 @@
-import type { HTMLAttributes, ReactNode } from 'react'
+import type { HTMLAttributes } from 'react'
+
+type BadgeVariant = 'default' | 'success' | 'warning' | 'danger' | 'outline'
+type BadgeSize = 'sm' | 'md'
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
-  children: ReactNode
-  variant?: 'default' | 'success' | 'warning' | 'danger' | 'info'
+  variant?: BadgeVariant
+  size?: BadgeSize
 }
 
-const variantClasses = {
-  default: 'bg-gray-100 text-gray-700',
-  success: 'bg-green-100 text-green-700',
-  warning: 'bg-yellow-100 text-yellow-700',
-  danger: 'bg-red-100 text-red-700',
-  info: 'bg-blue-100 text-blue-700',
-} as const
+function joinClasses(...classes: Array<string | false | null | undefined>) {
+  return classes.filter(Boolean).join(' ')
+}
 
-export function Badge({
-  children,
-  variant = 'default',
-  className = '',
-  ...props
-}: BadgeProps) {
-  const classes = [
-    'inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium',
-    variantClasses[variant],
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ')
+const variantStyles: Record<BadgeVariant, string> = {
+  default: 'bg-slate-100 text-slate-800',
+  success: 'bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-200',
+  warning: 'bg-amber-50 text-amber-800 ring-1 ring-inset ring-amber-200',
+  danger: 'bg-rose-50 text-rose-700 ring-1 ring-inset ring-rose-200',
+  outline: 'border border-slate-300 bg-transparent text-slate-700',
+}
 
+const sizeStyles: Record<BadgeSize, string> = {
+  sm: 'px-2 py-0.5 text-xs',
+  md: 'px-2.5 py-1 text-sm',
+}
+
+export function Badge({ className, variant = 'default', size = 'sm', children, ...props }: BadgeProps) {
   return (
-    <span className={classes} {...props}>
+    <span
+      className={joinClasses(
+        'inline-flex items-center rounded-full font-medium leading-none',
+        variantStyles[variant],
+        sizeStyles[size],
+        className,
+      )}
+      {...props}
+    >
       {children}
     </span>
   )

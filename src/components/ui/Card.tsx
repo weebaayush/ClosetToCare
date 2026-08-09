@@ -4,67 +4,55 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
 }
 
-export interface CardSectionProps extends HTMLAttributes<HTMLDivElement> {
+export interface CardHeaderProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
 }
 
-export function Card({ children, className = '', ...props }: CardProps) {
-  const classes = ['rounded-xl border border-gray-200 bg-white shadow-sm', className]
-    .filter(Boolean)
-    .join(' ')
+export interface CardBodyProps extends HTMLAttributes<HTMLDivElement> {
+  children: ReactNode
+}
 
+export interface CardFooterProps extends HTMLAttributes<HTMLDivElement> {
+  children: ReactNode
+}
+
+function joinClasses(...classes: Array<string | false | null | undefined>) {
+  return classes.filter(Boolean).join(' ')
+}
+
+export function Card({ className, children, ...props }: CardProps) {
   return (
-    <div className={classes} {...props}>
+    <div
+      className={joinClasses(
+        'rounded-2xl border border-slate-200 bg-white text-slate-900 shadow-sm',
+        className,
+      )}
+      {...props}
+    >
       {children}
     </div>
   )
 }
 
-export function CardHeader({ children, className = '', ...props }: CardSectionProps) {
-  const classes = ['border-b border-gray-200 px-5 py-4', className].filter(Boolean).join(' ')
-
+export function CardHeader({ className, children, ...props }: CardHeaderProps) {
   return (
-    <div className={classes} {...props}>
+    <div className={joinClasses('border-b border-slate-200 px-6 py-5', className)} {...props}>
       {children}
     </div>
   )
 }
 
-export function CardTitle({ children, className = '', ...props }: CardSectionProps) {
-  const classes = ['text-base font-semibold text-gray-900', className].filter(Boolean).join(' ')
-
+export function CardBody({ className, children, ...props }: CardBodyProps) {
   return (
-    <h3 className={classes} {...props}>
-      {children}
-    </h3>
-  )
-}
-
-export function CardDescription({ children, className = '', ...props }: CardSectionProps) {
-  const classes = ['mt-1 text-sm text-gray-500', className].filter(Boolean).join(' ')
-
-  return (
-    <p className={classes} {...props}>
-      {children}
-    </p>
-  )
-}
-
-export function CardContent({ children, className = '', ...props }: CardSectionProps) {
-  const classes = ['px-5 py-4', className].filter(Boolean).join(' ')
-
-  return (
-    <div className={classes} {...props}>
+    <div className={joinClasses('px-6 py-5', className)} {...props}>
       {children}
     </div>
   )
 }
 
-export function CardFooter({ children, className = '', ...props }: CardSectionProps) {
-  const classes = ['border-t border-gray-200 px-5 py-4', className].filter(Boolean).join(' ')
-
+export function CardFooter({ className, children, ...props }: CardFooterProps) {
   return (
-    <div className={classes} {...props}>
+    <div className={joinClasses('border-t border-slate-200 px-6 py-4', className)} {...props}>
       {children}
     </div>
   )

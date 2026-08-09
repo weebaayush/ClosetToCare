@@ -1,125 +1,118 @@
 import {
-  Users,
-  Shield,
-  AlertCircle,
+  ArrowRight,
+  CheckCircle2,
+  Clock,
   Mail,
   MapPin,
   Search,
-  Eye,
-  Lock,
+  ShieldAlert,
+  Users,
+  X,
+  RotateCcw,
   Inbox,
-  UserCheck,
-  UserX,
 } from 'lucide-react'
 import { Badge, Button, Card, CardBody, CardHeader, Input } from '../../components/ui'
 
-const userSummaryCards = [
+const managementSummaryCards = [
   {
-    label: 'Total Users',
-    value: '347',
+    label: 'Total NGOs',
+    value: '45',
     icon: Users,
   },
   {
-    label: 'Donors',
-    value: '251',
-    icon: UserCheck,
+    label: 'Verified NGOs',
+    value: '38',
+    icon: CheckCircle2,
   },
   {
-    label: 'NGO Accounts',
-    value: '78',
-    icon: Shield,
+    label: 'Pending Review',
+    value: '5',
+    icon: Clock,
   },
   {
-    label: 'Suspended Accounts',
-    value: '6',
-    icon: AlertCircle,
+    label: 'Suspended NGOs',
+    value: '2',
+    icon: ShieldAlert,
   },
 ]
 
-const exampleUsers = [
+const exampleNgos = [
   {
-    id: '1',
-    fullName: 'Priya Sharma',
-    email: 'priya.sharma@email.com',
-    role: 'Donor',
-    roleVariant: 'default' as const,
-    location: 'Koramangala, Bengaluru',
-    createdDate: '18 Aug 2024',
-    status: 'Active',
+    name: 'Greenfield Community Trust',
+    contactPerson: 'Rajesh Kumar',
+    email: 'contact@greenfield.org',
+    location: 'Bengaluru',
+    registrationDate: '15 Jan 2024',
+    status: 'Verified',
     statusVariant: 'success' as const,
-    description: 'Example user showing an active donor account with full platform access.',
+    focusArea: 'Community welfare',
+    description: 'Example NGO record showing a verified organization with complete documentation.',
   },
   {
-    id: '2',
-    fullName: 'Rajesh Kumar (NGO Admin)',
-    email: 'rajesh@greenfield-ngo.org',
-    role: 'NGO User',
-    roleVariant: 'warning' as const,
-    location: 'Indiranagar, Bengaluru',
-    createdDate: '15 Aug 2024',
-    status: 'Active',
+    name: 'Sunrise Women Collective',
+    contactPerson: 'Priya Sharma',
+    email: 'info@sunrisewomen.org',
+    location: 'Pune',
+    registrationDate: '08 Feb 2024',
+    status: 'Verified',
     statusVariant: 'success' as const,
-    description: 'Illustrative record showing an active NGO administrator account managing donations.',
+    focusArea: 'Women empowerment',
+    description: 'Illustrative record for an approved NGO with active status.',
   },
   {
-    id: '3',
-    fullName: 'Admin User',
-    email: 'admin@closettocare.org',
-    role: 'Admin',
-    roleVariant: 'danger' as const,
-    location: 'Central Admin, Bengaluru',
-    createdDate: '01 Jan 2024',
-    status: 'Active',
-    statusVariant: 'success' as const,
-    description: 'Example record showing a platform administrator with full system access.',
-  },
-  {
-    id: '4',
-    fullName: 'Anita Desai',
-    email: 'anita.d@email.com',
-    role: 'Donor',
-    roleVariant: 'default' as const,
-    location: 'Whitefield, Bengaluru',
-    createdDate: '10 Aug 2024',
-    status: 'Pending',
+    name: 'Youth Development Initiative',
+    contactPerson: 'Arun Desai',
+    email: 'hello@youthdev.org',
+    location: 'Mumbai',
+    registrationDate: '22 Jul 2024',
+    status: 'Pending Review',
     statusVariant: 'warning' as const,
-    description: 'Sample record for a new donor account awaiting email verification and profile completion.',
+    focusArea: 'Youth education',
+    description: 'Example record showing a newly registered NGO awaiting admin verification.',
   },
   {
-    id: '5',
-    fullName: 'Sunita Patel',
-    email: 'sunita@email.com',
-    role: 'Donor',
-    roleVariant: 'default' as const,
-    location: 'Jayanagar, Bengaluru',
-    createdDate: '05 Aug 2024',
+    name: 'Urban Aid Foundation',
+    contactPerson: 'Meera Chopra',
+    email: 'support@urbanaid.org',
+    location: 'Delhi',
+    registrationDate: '03 May 2023',
     status: 'Suspended',
     statusVariant: 'danger' as const,
-    description: 'Example user showing a suspended account flagged for policy violation review.',
+    focusArea: 'Urban poverty relief',
+    description: 'Sample record for an organization with suspended status pending review.',
   },
   {
-    id: '6',
-    fullName: 'Mukesh Verma (Sunrise Women Collective)',
-    email: 'mukesh@sunrisewomen.org',
-    role: 'NGO User',
-    roleVariant: 'warning' as const,
-    location: 'Electronic City, Bengaluru',
-    createdDate: '08 Aug 2024',
-    status: 'Active',
+    name: 'Tech for Good Society',
+    contactPerson: 'Vikram Nair',
+    email: 'team@techforgood.org',
+    location: 'Bengaluru',
+    registrationDate: '19 Jun 2024',
+    status: 'Pending Review',
+    statusVariant: 'warning' as const,
+    focusArea: 'Digital literacy',
+    description: 'Planned workflow example for a pending NGO application with documentation.',
+  },
+  {
+    name: 'Rural Connect Initiative',
+    contactPerson: 'Suresh Patel',
+    email: 'reach@ruralconnect.org',
+    location: 'Ahmedabad',
+    registrationDate: '10 Sep 2023',
+    status: 'Verified',
     statusVariant: 'success' as const,
-    description: 'Planned record for an NGO partner managing donation collections and beneficiary support.',
+    focusArea: 'Rural development',
+    description: 'Example NGO record showing a long-standing verified partner organization.',
   },
 ]
 
-const filterRoles = [
-  { label: 'All Users', value: 'all' },
-  { label: 'Donors', value: 'donor' },
-  { label: 'NGO Users', value: 'ngo' },
-  { label: 'Admins', value: 'admin' },
+const filterCategories = [
+  { label: 'All', value: 'all' },
+  { label: 'Verified', value: 'verified' },
+  { label: 'Pending Review', value: 'pending' },
   { label: 'Suspended', value: 'suspended' },
 ]
 
-export function UserManagementPage() {
+export function NgoManagementPage() {
   return (
     <div className="space-y-8 lg:space-y-10">
       <section className="relative overflow-hidden rounded-[2rem] border border-emerald-100 bg-white px-6 py-8 shadow-sm sm:px-8 sm:py-10">
@@ -127,35 +120,35 @@ export function UserManagementPage() {
 
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
-            <Badge variant="success">User administration</Badge>
+            <Badge variant="success">NGO administration</Badge>
             <h1 className="mt-5 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-              User Management
+              NGO Management
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
-              This page is a visual foundation for user account management and moderation. The
-              content shown here is illustrative only and does not represent actual ClosetToCare
-              platform user records.
+              This page is a visual foundation for NGO verification, approval management, and
+              organization oversight. The content shown here is illustrative only and does not
+              represent actual ClosetToCare NGO partner data.
             </p>
           </div>
 
           <div className="flex flex-wrap gap-3">
             <Button size="lg" variant="outline">
-              Export Users
+              Export List
             </Button>
           </div>
         </div>
       </section>
 
-      <section aria-labelledby="user-summary-heading" className="space-y-4">
+      <section aria-labelledby="ngo-summary-heading" className="space-y-4">
         <div>
           <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">Summary</p>
-          <h2 id="user-summary-heading" className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-            User base and account status breakdown.
+          <h2 id="ngo-summary-heading" className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+            NGO overview and status breakdown.
           </h2>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {userSummaryCards.map((card) => {
+          {managementSummaryCards.map((card) => {
             const Icon = card.icon
 
             return (
@@ -177,14 +170,14 @@ export function UserManagementPage() {
         </div>
       </section>
 
-      <section className="space-y-4" aria-labelledby="user-list-heading">
+      <section className="space-y-4" aria-labelledby="ngo-list-heading">
         <div className="space-y-4">
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
               Management
             </p>
-            <h2 id="user-list-heading" className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-              Active users and account moderation.
+            <h2 id="ngo-list-heading" className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+              NGO records and verification status.
             </h2>
           </div>
 
@@ -192,13 +185,13 @@ export function UserManagementPage() {
             <div className="flex-1 min-w-0">
               <Input
                 type="text"
-                placeholder="Search user by name, email, or location..."
+                placeholder="Search NGO by name, email, or location..."
                 className="w-full"
                 leftIcon={<Search className="size-5 text-slate-400" aria-hidden="true" />}
               />
             </div>
             <div className="flex flex-wrap gap-2">
-              {filterRoles.map((filter) => (
+              {filterCategories.map((filter) => (
                 <Button key={filter.value} size="sm" variant="outline">
                   {filter.label}
                 </Button>
@@ -208,38 +201,32 @@ export function UserManagementPage() {
         </div>
 
         <div className="grid gap-4">
-          {exampleUsers.map((user) => (
-            <Card key={user.id} className="border-slate-200 shadow-sm">
+          {exampleNgos.map((ngo) => (
+            <Card key={ngo.name} className="border-slate-200 shadow-sm">
               <CardBody className="p-0">
                 <div className="flex flex-col gap-5 p-6 lg:flex-row lg:items-start lg:justify-between">
                   <div className="min-w-0 flex-1 space-y-4">
                     <div className="flex flex-wrap items-center gap-3">
-                      <h3 className="text-lg font-semibold text-slate-900">{user.fullName}</h3>
-                      <Badge variant={user.roleVariant}>{user.role}</Badge>
-                      <Badge variant={user.statusVariant}>{user.status}</Badge>
+                      <h3 className="text-lg font-semibold text-slate-900">{ngo.name}</h3>
+                      <Badge variant={ngo.statusVariant}>{ngo.status}</Badge>
                     </div>
-                    <p className="text-sm leading-6 text-slate-600">{user.description}</p>
+                    <p className="text-sm leading-6 text-slate-600">{ngo.description}</p>
 
-                    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                      <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+                          Contact person
+                        </p>
+                        <p className="mt-2 text-sm font-medium text-slate-900">{ngo.contactPerson}</p>
+                      </div>
                       <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
                         <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
                           Email
                         </p>
                         <p className="mt-2 text-sm font-medium text-slate-900">
-                          <span className="inline-flex items-center gap-1.5 break-all">
-                            <Mail className="size-4 shrink-0 text-emerald-600" aria-hidden="true" />
-                            {user.email}
-                          </span>
-                        </p>
-                      </div>
-                      <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
-                        <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
-                          Role
-                        </p>
-                        <p className="mt-2 text-sm font-medium text-slate-900">
                           <span className="inline-flex items-center gap-1.5">
-                            <Shield className="size-4 text-emerald-600" aria-hidden="true" />
-                            {user.role}
+                            <Mail className="size-4 text-emerald-600" aria-hidden="true" />
+                            {ngo.email}
                           </span>
                         </p>
                       </div>
@@ -248,48 +235,57 @@ export function UserManagementPage() {
                           Location
                         </p>
                         <p className="mt-2 text-sm font-medium text-slate-900">
-                          <span className="inline-flex items-start gap-1.5">
-                            <MapPin className="mt-0.5 size-4 shrink-0 text-emerald-600" aria-hidden="true" />
-                            <span>{user.location}</span>
+                          <span className="inline-flex items-center gap-1.5">
+                            <MapPin className="size-4 text-emerald-600" aria-hidden="true" />
+                            {ngo.location}
                           </span>
                         </p>
                       </div>
                       <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
                         <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
-                          Account created
+                          Registration date
                         </p>
-                        <p className="mt-2 text-sm font-medium text-slate-900">{user.createdDate}</p>
+                        <p className="mt-2 text-sm font-medium text-slate-900">{ngo.registrationDate}</p>
                       </div>
                       <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
                         <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
-                          Status
+                          Focus area
                         </p>
-                        <p className="mt-2 text-sm font-medium text-slate-900">{user.status}</p>
+                        <p className="mt-2 text-sm font-medium text-slate-900">{ngo.focusArea}</p>
+                      </div>
+                      <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+                          Verification status
+                        </p>
+                        <p className="mt-2 text-sm font-medium text-slate-900">{ngo.status}</p>
                       </div>
                     </div>
                   </div>
 
                   <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-col lg:items-stretch">
                     <Button size="sm" variant="outline">
-                      <Eye className="size-4" aria-hidden="true" />
-                      View Profile
+                      View Details
+                      <ArrowRight className="size-4" aria-hidden="true" />
                     </Button>
-                    {user.status === 'Active' && (
+                    {ngo.status === 'Pending Review' && (
+                      <>
+                        <Button size="sm">Approve</Button>
+                        <Button size="sm" variant="outline">
+                          <X className="size-4" aria-hidden="true" />
+                          Reject
+                        </Button>
+                      </>
+                    )}
+                    {ngo.status === 'Verified' && (
                       <Button size="sm" variant="outline">
-                        <Lock className="size-4" aria-hidden="true" />
-                        Suspend Account
+                        <ShieldAlert className="size-4" aria-hidden="true" />
+                        Suspend
                       </Button>
                     )}
-                    {user.status === 'Suspended' && (
+                    {ngo.status === 'Suspended' && (
                       <Button size="sm" variant="outline">
-                        <UserCheck className="size-4" aria-hidden="true" />
-                        Restore Account
-                      </Button>
-                    )}
-                    {user.status === 'Pending' && (
-                      <Button size="sm" variant="outline">
-                        <UserX className="size-4" aria-hidden="true" />
-                        Review Account
+                        <RotateCcw className="size-4" aria-hidden="true" />
+                        Restore
                       </Button>
                     )}
                   </div>
@@ -300,14 +296,14 @@ export function UserManagementPage() {
         </div>
       </section>
 
-      <section aria-labelledby="user-empty-heading">
+      <section aria-labelledby="ngo-empty-heading">
         <Card className="border-dashed border-emerald-200 bg-emerald-50/40 shadow-sm">
           <CardHeader>
             <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
               Planned capacity area
             </p>
-            <h2 id="user-empty-heading" className="mt-1 text-xl font-semibold text-slate-900">
-              As users register and create accounts, they will appear in the management list above.
+            <h2 id="ngo-empty-heading" className="mt-1 text-xl font-semibold text-slate-900">
+              When additional NGO applications are submitted, they will appear in this list.
             </h2>
           </CardHeader>
           <CardBody className="space-y-4 p-6">
@@ -315,16 +311,16 @@ export function UserManagementPage() {
               <Inbox className="size-5" aria-hidden="true" />
             </div>
             <p className="mx-auto max-w-2xl text-center text-sm leading-6 text-slate-600">
-              This section illustrates where additional user records and admin moderation capabilities
-              will be displayed for comprehensive user account management. It is purely a layout example
-              and does not reflect live ClosetToCare user data.
+              This section illustrates where new NGO applications and registrations will be displayed
+              for admin review and approval. It is purely a layout example and does not reflect live
+              ClosetToCare NGO partner data.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <Button size="sm" variant="outline">
-                Refresh user list
+                Refresh list
               </Button>
               <Button size="sm" variant="outline">
-                View Pending Accounts
+                View Pending Applications
               </Button>
             </div>
           </CardBody>
